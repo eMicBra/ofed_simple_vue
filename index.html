@@ -14,8 +14,10 @@
       </ul>
       <h3>Developers</h3>
       <ul>
-        <li v-for="developer in developers" v-if="developer.present">
-          {{developer.name}} <span v-if="developer.host">(Host)</span>
+        <li v-for="developer in developers">
+          {{developer.name}} <span v-if="developer.host">(Host)</span
+          ><span v-else>(Attendee)</span
+          ><button v-on:click="sayHi(developer)">Say Hi</button>
         </li>
       </ul>
     </div>
@@ -46,6 +48,16 @@
             { name: "Levi", present: true },
             { name: "Jaison", present: true },
           ],
+        },
+        methods: {
+          sayHi: function (developer) {
+            alert(
+              "Hi " +
+                developer.name +
+                (developer.present ? "" : ", wherever you are") +
+                "!"
+            );
+          },
         },
       });
     </script>
