@@ -6,14 +6,26 @@
     <div id="app">
       <h1>Intro To Vue.js</h1>
       <h2>{{ groupName }}</h2>
-      <a v-bind:href="vueLink">Vue.js</a>
+      <h3>Vue.js Resources</h3>
+      <ul>
+        <li v-for="resource in vueResources">
+          <a :href="resource.url">{{resource.name}}</a>
+        </li>
+      </ul>
     </div>
     <script>
       var app = new Vue({
         el: "#app",
         data: {
           groupName: "Olympia Front End Developers Group",
-          vueLink: "https://vuejs.org",
+          vueResources: [
+            { name: "Vue.js", url: "https://vuejs.org" },
+            { name: "Vue Mastery", url: "https://vuemastery.com" },
+            {
+              name: "Vue @ LaraCasts",
+              url: "https://laracasts.com/series/learn-vue-2-step-by-step",
+            },
+          ],
         },
       });
     </script>
