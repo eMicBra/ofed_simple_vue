@@ -1,0 +1,19 @@
+<html>
+  <head>
+    <script src="https://unpkg.com/vue"></script>
+  </head>
+  <body>
+    <div id="app">
+      <h1>Intro To Vue.js</h1>
+      <h2>{{ groupName }}</h2>
+    </div>
+    <script>
+      var app = new Vue({
+        el: "#app",
+        data: {
+          groupName: "Olympia Front End Developers Group",
+        },
+      });
+    </script>
+  </body>
+</html>
