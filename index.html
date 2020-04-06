@@ -6,12 +6,14 @@
     <div id="app">
       <h1>Intro To Vue.js</h1>
       <h2>{{ groupName }}</h2>
+      <a v-bind:href="vueLink">Vue.js</a>
     </div>
     <script>
       var app = new Vue({
         el: "#app",
         data: {
           groupName: "Olympia Front End Developers Group",
+          vueLink: "https://vuejs.org",
         },
       });
     </script>
