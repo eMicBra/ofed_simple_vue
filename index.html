@@ -12,6 +12,12 @@
           <a :href="resource.url">{{resource.name}}</a>
         </li>
       </ul>
+      <h3>Developers</h3>
+      <ul>
+        <li v-for="developer in developers" v-if="developer.present">
+          {{developer.name}} <span v-if="developer.host">(Host)</span>
+        </li>
+      </ul>
     </div>
     <script>
       var app = new Vue({
@@ -25,6 +31,20 @@
               name: "Vue @ LaraCasts",
               url: "https://laracasts.com/series/learn-vue-2-step-by-step",
             },
+          ],
+          developers: [
+            { name: "Jack", present: true, host: true },
+            { name: "Michael", present: true, host: true },
+            { name: "wm", present: true },
+            { name: "Roland", present: true },
+            { name: "David", present: true },
+            { name: "James", present: true },
+            { name: "Heesoo", present: true },
+            { name: "Sven", present: true },
+            { name: "ramakrishna", present: true },
+            { name: "Arend", present: true },
+            { name: "Levi", present: true },
+            { name: "Jaison", present: true },
           ],
         },
       });
