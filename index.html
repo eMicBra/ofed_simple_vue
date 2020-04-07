@@ -10,7 +10,7 @@
     </style>
     <div id="app">
       <h1>Intro To Vue.js</h1>
-      <h2>{{ groupName }}</h2>
+      <h2>{{ groupName }} ({{attendeeCount}})</h2>
       <h3>Vue.js Resources</h3>
       <ul>
         <li
@@ -70,6 +70,18 @@
             { name: "Levi", present: true },
             { name: "Jaison", present: true },
           ],
+        },
+        computed: {
+          attendeeCount() {
+            var attendeeCounter = function (count, developer) {
+              if (developer.present) {
+                count = count + 1;
+              }
+              return count;
+            };
+
+            return this.developers.reduce(attendeeCounter, 0);
+          },
         },
         methods: {
           sayHi: function (developer) {
