@@ -5,7 +5,7 @@
   <body>
     <style>
       .isFree {
-        background-color: rgb(223, 88, 223);
+        background-color: rgb(240, 161, 240);
       }
     </style>
     <div id="app">
@@ -21,19 +21,58 @@
           <a :href="resource.url">{{resource.name}}</a>
         </li>
       </ul>
-      <h3>Developers</h3>
-      <ul>
-        <li
-          v-for="developer in developers"
-          :style="{ backgroundColor: (developer.present ? 'lightgreen' : 'pink') }"
-        >
-          {{developer.name}} <span v-if="developer.host">(Host)</span
-          ><span v-else>(Attendee)</span
-          ><button v-on:click="sayHi(developer)">Say Hi</button>
-        </li>
-      </ul>
+      <developers-list :developers="developers" @say_hi_clicked="sayHi" />
     </div>
+
+    <!--template for developers-list component-->
+    <script id="developers-list-template" type="text/template">
+      <div>
+        <h3>Developers</h3>
+        <ul>
+          <developer v-for="developer in developers" :developer="developer" />
+        </ul>
+      </div>
+    </script>
+    <!-- end template ---------------------------->
+
+    <!-- application script -->
     <script>
+      //global event bus
+      var eventBus = new Vue();
+
+      //** component: developer *********************/
+      Vue.component("developer", {
+        template: `<li :style="{ backgroundColor: (developer.present ? 'lightgreen' : 'pink') }">
+            {{developer.name}} <span v-if="developer.host">(Host)</span><span v-else>(Attendee)</span>
+            <button v-on:click="sayHiClickHandler(developer)">Say Hi</button>
+          </li>`,
+        props: {
+          developer: {
+            type: Object,
+            required: true,
+          },
+        },
+        methods: {
+          sayHiClickHandler: function (developer) {
+            eventBus.$emit("say-hi-clicked", developer);
+          },
+        },
+      });
+      /** end component *****************************/
+
+      /** component: developers-list ***********/
+      Vue.component("developers-list", {
+        template: "#developers-list-template",
+        props: {
+          developers: {
+            type: Array,
+            required: true,
+          },
+        },
+      });
+      /** end component */
+
+      /** main Vue application instance **/
       var app = new Vue({
         el: "#app",
         data: {
@@ -93,7 +132,11 @@
             );
           },
         },
+        mounted() {
+          eventBus.$on("say-hi-clicked", this.sayHi);
+        },
       });
+      /** end application **/
     </script>
   </body>
 </html>
